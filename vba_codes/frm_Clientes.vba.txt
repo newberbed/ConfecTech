@@ -1,0 +1,37 @@
+Private Sub Form_Current()
+    ' Executa a mesma regra de exibição ao navegar pelos registros
+    Call Tipo_Cliente_AfterUpdate
+End Sub
+
+Private Sub Tipo_Cliente_AfterUpdate()
+    On Error GoTo TrataErro
+    
+    ' Se for Pessoa Jurídica
+    If Me.Tipo_Cliente = "PJ" Then
+        Me.Razao_Social_Nome.Controls(0).Caption = "Razão Social:"
+        Me.CNPJ_CPF.Controls(0).Caption = "CNPJ:"
+        
+        ' Torna visíveis os campos exclusivos de PJ
+        Me.Nome_Fantasia.Visible = True
+        Me.Nome_Fantasia.Controls(0).Visible = True
+        Me.Inscricao_Estadual.Visible = True
+        Me.Inscricao_Estadual.Controls(0).Visible = True
+        
+    ' Se for Pessoa Física
+    ElseIf Me.Tipo_Cliente = "PF" Then
+        Me.Razao_Social_Nome.Controls(0).Caption = "Nome Completo:"
+        Me.CNPJ_CPF.Controls(0).Caption = "CPF:"
+        
+        ' Oculta os campos corporativos desnecessários
+        Me.Nome_Fantasia.Visible = False
+        Me.Nome_Fantasia.Controls(0).Visible = False
+        Me.Inscricao_Estadual.Visible = False
+        Me.Inscricao_Estadual.Controls(0).Visible = False
+    End If
+    
+Exit_Sub:
+    Exit Sub
+TrataErro:
+    MsgBox "Ocorreu um erro ao alternar o tipo de cliente: " & Err.Description, vbCritical, "Erro de Sistema"
+    Resume Exit_Sub
+End Sub
