@@ -1,0 +1,21 @@
+Private Sub btn_NavClientes_Click()
+    On Error GoTo TrataErro
+    ' Abre o formulário de clientes e garante que ele ganhe o foco
+    DoCmd.OpenForm "frm_Clientes", acNormal
+    
+Exit_Sub:
+    Exit Sub
+TrataErro:
+    MsgBox "Erro ao abrir a tela de Clientes: " & Err.Description, vbCritical, "ConfecTech"
+    Resume Exit_Sub
+End Sub
+
+Private Sub btn_NavProdutos_Click()
+    On Error GoTo TrataErro
+    DoCmd.OpenForm "frm_Produtos", acNormal
+Exit_Sub:
+    Exit Sub
+TrataErro:
+    MsgBox "Erro ao abrir a tela de Produtos: " & Err.Description, vbCritical, "ConfecTech"
+    Resume Exit_Sub
+End Sub
